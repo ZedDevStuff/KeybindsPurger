@@ -1,4 +1,8 @@
 package dev.zeddevstuff.keybindspurger.access;
 
-public class IKeyBindsScreenMixin {
+import net.minecraft.client.gui.components.Button;
+
+public interface IKeyBindsScreenMixin
+{
+    public void addButton(Button button);
 }

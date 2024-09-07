@@ -8,7 +8,9 @@
     "ZedDevStuff"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/keybindspurger"
+    "homepage": "https://modrinth.com/mod/keybindspurger",
+    "sources": "https://github.com/ZedDevStuff/KeybindsPurger",
+    "issues": "https://github.com/ZedDevStuff/KeybindsPurger/issues"
   },
   "license": "MIT",
   "icon": "assets/keybindspurger/icon.png",

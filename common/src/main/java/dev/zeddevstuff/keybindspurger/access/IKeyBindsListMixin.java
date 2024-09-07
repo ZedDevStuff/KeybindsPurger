@@ -1,4 +1,8 @@
 package dev.zeddevstuff.keybindspurger.access;
 
-public class IKeyBindsListMixin {
+import net.minecraft.client.gui.screens.controls.KeyBindsScreen;
+
+public interface IKeyBindsListMixin
+{
+    public KeyBindsScreen parent();
 }

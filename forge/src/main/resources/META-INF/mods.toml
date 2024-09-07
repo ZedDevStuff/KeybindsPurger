@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/ZedDevStuff/KeybindsPurger"
 license = "MIT"
 
 [[mods]]
@@ -11,6 +11,7 @@ authors = "ZedDevStuff"
 description = '''
 Unset all keybinds for a clean slate
 '''
+displayURL = "https://modrinth.com/mod/keybindspurger"
 #logoFile = ""
 
 [[dependencies.keybindspurger]]
