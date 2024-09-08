@@ -12,7 +12,7 @@ description = '''
 Unset all keybinds for a clean slate
 '''
 displayURL = "https://modrinth.com/mod/keybindspurger"
-#logoFile = ""
+logoFile = "icon.png"
 
 [[dependencies.keybindspurger]]
 modId = "forge"

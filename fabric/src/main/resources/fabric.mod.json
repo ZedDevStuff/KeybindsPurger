@@ -13,7 +13,7 @@
     "issues": "https://github.com/ZedDevStuff/KeybindsPurger/issues"
   },
   "license": "MIT",
-  "icon": "assets/keybindspurger/icon.png",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

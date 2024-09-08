@@ -1,3 +1,5 @@
 {
-  "button.keybindspurger.purge": "Purge"
+  "button.keybindspurger.purge": "Purge",
+  "button.keybindspurger.purge_all": "Purge All",
+  "button.keybindspurger.purge_non_vanilla": "Purge Non-Vanilla"
 }
