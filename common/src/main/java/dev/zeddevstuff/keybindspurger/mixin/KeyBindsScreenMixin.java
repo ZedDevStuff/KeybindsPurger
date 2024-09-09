@@ -5,6 +5,7 @@ import dev.zeddevstuff.keybindspurger.Keybindspurger;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.client.gui.screens.controls.KeyBindsScreen;
@@ -33,13 +34,15 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
     {
         if(minecraft == null)
             return;
-        addRenderableWidget(Button.builder(Component.translatable("button.keybindspurger.purge_all"), this::keybindspurger$purgeAll)
+        addRenderableWidget(Button.builder(Component.literal("A"), this::keybindspurger$purgeAll)
+            .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_all")))
             .pos(0, minecraft.getWindow().getGuiScaledHeight() - 32)
-            .size(60,16)
+            .size(16,16)
             .build());
-        addRenderableWidget(Button.builder(Component.translatable("button.keybindspurger.purge_non_vanilla"), this::keybindspurger$purgeAllNonVanilla)
+        addRenderableWidget(Button.builder(Component.literal("M"), this::keybindspurger$purgeAllNonVanilla)
+            .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_non_vanilla")))
             .pos(0, minecraft.getWindow().getGuiScaledHeight() - 16)
-            .size(60,16)
+            .size(16,16)
             .build());
     }
 
