@@ -33,14 +33,16 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
     {
         if(minecraft == null)
             return;
-        addRenderableWidget(Button.builder(Component.translatable("button.keybindspurger.purge_all"), this::keybindspurger$purgeAll)
-            .pos(0, minecraft.getWindow().getGuiScaledHeight() - 32)
-            .size(60,16)
-            .build());
-        addRenderableWidget(Button.builder(Component.translatable("button.keybindspurger.purge_non_vanilla"), this::keybindspurger$purgeAllNonVanilla)
-            .pos(0, minecraft.getWindow().getGuiScaledHeight() - 16)
-            .size(60,16)
-            .build());
+        addRenderableWidget(new Button(
+            0, minecraft.getWindow().getGuiScaledHeight() - 32,
+            60,16,
+            Keybindspurger.getALL(),
+            this::keybindspurger$purgeAll));
+        addRenderableWidget(new Button(
+            0, minecraft.getWindow().getGuiScaledHeight() - 16,
+            60,16,
+            Keybindspurger.getNON_VANILLA(),
+            this::keybindspurger$purgeAllNonVanilla));
     }
 
     @Unique
@@ -52,7 +54,7 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
         {
             keyMapping.setKey(InputConstants.UNKNOWN);
         }
-        keyBindsList.refreshEntries();
+        //keyBindsList.refreshEntries();
     }
     @Unique
     public void keybindspurger$purgeAllNonVanilla(Button button)
@@ -64,7 +66,7 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
             if(!Keybindspurger.VANILLA_KEYBINDS.contains(keyMapping.getName()))
                 keyMapping.setKey(InputConstants.UNKNOWN);
         }
-        keyBindsList.refreshEntries();
+        //keyBindsList.refreshEntries();
     }
 
     @Override

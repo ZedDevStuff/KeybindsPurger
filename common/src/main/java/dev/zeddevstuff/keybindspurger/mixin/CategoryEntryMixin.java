@@ -1,10 +1,11 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
+import dev.zeddevstuff.keybindspurger.Keybindspurger;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsListMixin;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
@@ -30,9 +31,11 @@ public class CategoryEntryMixin
     @Inject(method = "<init>", at = @At("TAIL"))
     public void init(KeyBindsList keyBindsList, Component component, CallbackInfo ci)
     {
-        purgeButton = Button.builder(Component.translatable("button.keybindspurger.purge"), this::onButtonClicked)
-            .size(50,10)
-            .build();
+        purgeButton = new Button(
+            0,0,
+            50, 10,
+            Keybindspurger.getPURGE(),
+            this::onButtonClicked);
         ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).parent()).addButton(purgeButton);
     }
 
@@ -42,20 +45,20 @@ public class CategoryEntryMixin
         Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
             km.setKey(InputConstants.UNKNOWN);
         });
-        field_2738.refreshEntries();
+        //field_2738.refreshEntries();
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci)
+    public void render(PoseStack poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci)
     {
-        if(!purgeButton.isHovered())
+        /*if(!purgeButton.isHoveredOrFocused())
         {
-            purgeButton.setFocused(false);
-        }
+            purgeButton.changeFocus(false);
+        }*/
         //var right = guiGraphics.guiWidth() - 50;
-        purgeButton.setX(0);
-        purgeButton.setY(j + m - 9 - 1);
-        purgeButton.render(guiGraphics, n, o, f);
+        purgeButton.x = 0;
+        purgeButton.y = (j + m - 9 - 1);
+        purgeButton.render(poseStack, n, o, f);
     }
 
     public String getTranslationKey()

@@ -1,7 +1,10 @@
 package dev.zeddevstuff.keybindspurger.fabric;
 
+import com.mojang.logging.LogUtils;
 import dev.zeddevstuff.keybindspurger.Keybindspurger;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.network.chat.Component;
+import org.slf4j.Logger;
 
 public final class KeybindspurgerFabric implements ModInitializer
 {
