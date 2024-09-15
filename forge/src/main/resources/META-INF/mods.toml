@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[47,)"
+loaderVersion = "[36,)"
 issueTrackerURL = "https://github.com/ZedDevStuff/KeybindsPurger"
 license = "MIT"
 
@@ -17,13 +17,13 @@ logoFile = "icon.png"
 [[dependencies.keybindspurger]]
 modId = "forge"
 mandatory = true
-versionRange = "[47,)"
+versionRange = "[36,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.keybindspurger]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.20.1,)"
+versionRange = "[1.16.5,)"
 ordering = "NONE"
-side = "BOTH"
+side = "CLIENT"

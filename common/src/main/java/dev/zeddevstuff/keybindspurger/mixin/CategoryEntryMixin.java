@@ -1,15 +1,16 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.zeddevstuff.keybindspurger.access.IKeyBindsListMixin;
-import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
+import com.mojang.blaze3d.vertex.*;
+import dev.zeddevstuff.keybindspurger.Keybindspurger;
+import dev.zeddevstuff.keybindspurger.access.IControlListMixin;
+import dev.zeddevstuff.keybindspurger.access.IControlsScreenMixin;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.screens.controls.KeyBindsList;
+import net.minecraft.client.gui.screens.controls.ControlList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,28 +21,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
 
-@Mixin(KeyBindsList.CategoryEntry.class)
+@Mixin(ControlList.CategoryEntry.class)
 public class CategoryEntryMixin
 {
     Button purgeButton, resetButton;
 
     @Shadow @Final Component name;
 
-    @Shadow @Final private KeyBindsList field_2738;
+    @Shadow @Final private ControlList field_2738;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void init(KeyBindsList keyBindsList, Component component, CallbackInfo ci)
+    public void init(ControlList controlList, Component component, CallbackInfo ci)
     {
-        purgeButton = Button.builder(Component.literal("x"), this::keybindspurger$onButtonClicked)
-            .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge")))
-            .size(12,12)
-            .build();
-        resetButton = Button.builder(Component.literal("r"), this::keybindspurger$onButtonClicked)
-            .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.reset")))
-            .size(12,12)
-            .build();
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).parent()).addButton(purgeButton);
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).parent()).addButton(resetButton);
+        purgeButton = new Button(
+            0,0,
+            12, 12,
+            new TextComponent("x"),
+            this::keybindspurger$onButtonClicked,
+            (button, poseStack, mouseX, mouseY) -> keybindspurger$onTooltip(Keybindspurger.getPURGE(), button, poseStack, mouseX, mouseY));
+        resetButton = new Button(
+            0,0,
+            12, 12,
+            new TextComponent("r"),
+            this::keybindspurger$onButtonClicked,
+            (button, poseStack, mouseX, mouseY) -> keybindspurger$onTooltip(Keybindspurger.getRESET(), button, poseStack, mouseX, mouseY));
+        ((IControlsScreenMixin)((IControlListMixin)controlList).parent()).mAddButton(purgeButton);
+        ((IControlsScreenMixin)((IControlListMixin)controlList).parent()).mAddButton(resetButton);
     }
 
     @Unique
@@ -49,48 +54,41 @@ public class CategoryEntryMixin
     {
         if(button == purgeButton)
         {
-            var key = keybindspurger$getTranslationKey();
+            String key = getTranslationKey();
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(InputConstants.UNKNOWN);
             });
-            field_2738.refreshEntries();
         }
         else if(button == resetButton)
         {
-            var key = keybindspurger$getTranslationKey();
+            String key = getTranslationKey();
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(km.getDefaultKey());
             });
-            field_2738.refreshEntries();
         }
+    }
+    private void keybindspurger$onTooltip(Component component, Button button, PoseStack poseStack, int mouseX, int mouseY)
+    {
+        ((IControlListMixin)field_2738).parent().renderTooltip(poseStack, component, mouseX, mouseY);
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci)
+    public void render(PoseStack poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo ci)
     {
-        if(!purgeButton.isHovered())
-        {
-            purgeButton.setFocused(false);
-        }
-        if(!resetButton.isHovered())
-        {
-            resetButton.setFocused(false);
-        }
-        purgeButton.setX(0);
-        purgeButton.setY(j + m - 9 - 1);
-        resetButton.setX(12);
-        resetButton.setY(j + m - 9 - 1);
-        purgeButton.render(guiGraphics, n, o, f);
-        resetButton.render(guiGraphics, n, o, f);
+        purgeButton.x = 0;
+        purgeButton.y = (j + m - 9 - 1);
+        resetButton.x = 12;
+        resetButton.y = (j + m - 9 - 1);
+        purgeButton.render(poseStack, n, o, f);
+        resetButton.render(poseStack, n, o, f);
     }
 
-    @Unique
-    public String keybindspurger$getTranslationKey()
+    public String getTranslationKey()
     {
-        if(name.getContents() instanceof TranslatableContents tr)
+        if(name instanceof TranslatableComponent)
         {
-            return tr.getKey();
+            return ((TranslatableComponent)name).getKey();
         }
-        return "not translatable";
+        return name.getString();
     }
 }

@@ -2,7 +2,7 @@ package dev.zeddevstuff.keybindspurger.access;
 
 import net.minecraft.client.gui.components.Button;
 
-public interface IKeyBindsScreenMixin
+public interface IControlsScreenMixin
 {
-    public void addButton(Button button);
+    public void mAddButton(Button button);
 }

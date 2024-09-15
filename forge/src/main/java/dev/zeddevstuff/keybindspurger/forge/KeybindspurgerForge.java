@@ -1,14 +1,12 @@
 package dev.zeddevstuff.keybindspurger.forge;
 
-import dev.zeddevstuff.keybindspurger.Keybindspurger;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import dev.zeddevstuff.keybindspurger.Keybindspurger;
 
 @Mod(Keybindspurger.MOD_ID)
-public final class KeybindspurgerForge
-{
-    public KeybindspurgerForge()
-    {
+public final class KeybindsPurgerForge {
+    public KeybindsPurgerForge() {
         // Run our common setup.
         Keybindspurger.init();
     }

@@ -14,13 +14,13 @@
   },
   "license": "MIT",
   "icon": "icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
-      "dev.zeddevstuff.keybindspurger.fabric.KeybindspurgerFabric"
+      "dev.zeddevstuff.keybindspurger.fabric.KeybindsPurgerFabric"
     ],
     "client": [
-      "dev.zeddevstuff.keybindspurger.fabric.client.KeybindspurgerFabricClient"
+      "dev.zeddevstuff.keybindspurger.fabric.client.KeybindsPurgerFabricClient"
     ]
   },
   "mixins": [
@@ -28,8 +28,9 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.5",
-    "minecraft": "~1.20.1",
-    "java": ">=17"
+    "minecraft": "~1.16.5",
+    "java": ">=8",
+    "fabric": "*"
   },
   "suggests": {
     "another-mod": "*"
