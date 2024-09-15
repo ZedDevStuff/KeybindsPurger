@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "keybindspurger",
+  "version": "${version}",
+  "name": "KeybindsPurger",
+  "description": "Unset all keybinds for a clean slate",
+  "authors": [
+    "ZedDevStuff"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/keybindspurger",
+    "sources": "https://github.com/ZedDevStuff/KeybindsPurger",
+    "issues": "https://github.com/ZedDevStuff/KeybindsPurger/issues"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.zeddevstuff.keybindspurger.fabric.KeybindspurgerFabric"
+    ],
+    "client": [
+      "dev.zeddevstuff.keybindspurger.fabric.client.KeybindspurgerFabricClient"
+    ]
+  },
+  "mixins": [
+    "keybindspurger.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
