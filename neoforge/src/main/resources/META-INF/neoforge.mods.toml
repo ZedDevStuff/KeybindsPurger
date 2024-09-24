@@ -1,0 +1,33 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+issueTrackerURL = "https://github.com/ZedDevStuff/KeybindsPurger/issues"
+license = "MIT"
+
+[[mods]]
+modId = "keybindspurger"
+version = "${version}"
+displayName = "KeybindsPurger"
+authors = "ZedDevStuff"
+description = '''
+Unset all keybinds for a clean slate
+'''
+displayURL = "https://modrinth.com/mod/keybindspurger"
+logoFile = "icon.png"
+
+[[dependencies.keybindspurger]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.keybindspurger]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21,)"
+ordering = "NONE"
+side = "CLIENT"
+
+
+[[mixins]]
+config = "keybindspurger.mixins.json"
