@@ -8,4 +8,6 @@ dependencies {
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
+    implementation "com.blamejared.controlling:Controlling-common-1.21:18.0.4"
+
 }

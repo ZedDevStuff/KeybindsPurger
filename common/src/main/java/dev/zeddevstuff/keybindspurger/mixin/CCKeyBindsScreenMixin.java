@@ -1,5 +1,6 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
+import com.blamejared.controlling.client.NewKeyBindsScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.zeddevstuff.keybindspurger.Keybindspurger;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
@@ -7,7 +8,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.controls.KeyBindsList;
+import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,11 +19,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(targets = "com.blamejared.controlling.client.NewKeyBindsScreen")
+@Mixin(NewKeyBindsScreen.class)
 public abstract class CCKeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
 {
 
-    @Shadow protected abstract KeyBindsList getKeyBindsList();
+    @Shadow
+    public abstract KeyBindsList getKeyBindsList();
 
     protected CCKeyBindsScreenMixin(Component component)
     {
@@ -71,7 +73,7 @@ public abstract class CCKeyBindsScreenMixin extends Screen implements IKeyBindsS
     }
 
     @Override
-    public void addButton(Button button)
+    public void keybindspurger$addButton(Button button)
     {
         addWidget(button);
     }

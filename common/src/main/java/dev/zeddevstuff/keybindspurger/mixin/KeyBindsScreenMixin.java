@@ -69,7 +69,7 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
     }
 
     @Override
-    public void addButton(Button button)
+    public void keybindspurger$addButton(Button button)
     {
         addWidget(button);
     }

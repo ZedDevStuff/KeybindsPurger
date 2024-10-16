@@ -1,8 +1,10 @@
 package dev.zeddevstuff.keybindspurger;
 
 import com.mojang.logging.LogUtils;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Keybindspurger {

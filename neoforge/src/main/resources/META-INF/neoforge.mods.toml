@@ -29,5 +29,6 @@ ordering = "NONE"
 side = "CLIENT"
 
 
+
 [[mixins]]
 config = "keybindspurger.mixins.json"

@@ -1,6 +1,8 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
+import com.blamejared.controlling.client.NewKeyBindsList;
 import com.mojang.blaze3d.platform.InputConstants;
+import dev.zeddevstuff.keybindspurger.Keybindspurger;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsListMixin;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
 import net.minecraft.client.Minecraft;
@@ -42,8 +44,8 @@ public class CategoryEntryMixin
             .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.reset")))
             .size(12,12)
             .build();
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).addButton(keybindspurger$purgeButton);
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).addButton(keybindspurger$resetButton);
+        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$purgeButton);
+        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$resetButton);
     }
 
     @Unique
