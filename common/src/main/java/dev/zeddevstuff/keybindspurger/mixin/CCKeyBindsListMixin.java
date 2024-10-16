@@ -1,0 +1,16 @@
+package dev.zeddevstuff.keybindspurger.mixin;
+
+import dev.zeddevstuff.keybindspurger.access.IKeyBindsListMixin;
+import net.minecraft.client.gui.screens.controls.KeyBindsScreen;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+
+@Mixin(targets = "com.blamejared.controlling.client.NewKeyBindsList")
+public class CCKeyBindsListMixin implements IKeyBindsListMixin
+{
+    @Shadow @Final private KeyBindsScreen controlsScreen;
+
+    @Override
+    public KeyBindsScreen parent() { return controlsScreen; }
+}
