@@ -12,7 +12,6 @@
     "KeyBindsScreenMixin"
   ],
   "mixins": [
-    
   ],
   "plugin": "dev.zeddevstuff.keybindspurger.mixin.MixinManager",
   "injectors": {
