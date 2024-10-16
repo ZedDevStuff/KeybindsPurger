@@ -4,5 +4,5 @@ import net.minecraft.client.gui.screens.controls.KeyBindsScreen;
 
 public interface IKeyBindsListMixin
 {
-    public KeyBindsScreen parent();
+    public KeyBindsScreen keybindspurger$parent();
 }

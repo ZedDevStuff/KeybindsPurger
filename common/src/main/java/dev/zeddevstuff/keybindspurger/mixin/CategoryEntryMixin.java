@@ -40,8 +40,8 @@ public class CategoryEntryMixin
             .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.reset")))
             .size(12,12)
             .build();
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).parent()).addButton(purgeButton);
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).parent()).addButton(resetButton);
+        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(purgeButton);
+        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(resetButton);
     }
 
     @Unique

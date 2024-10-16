@@ -1,5 +1,7 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
+import com.blamejared.controlling.client.NewKeyBindsList;
+import com.blamejared.controlling.client.NewKeyBindsScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.zeddevstuff.keybindspurger.Keybindspurger;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
@@ -8,7 +10,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.controls.KeyBindsList;
-import net.minecraft.client.gui.screens.controls.KeyBindsScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,14 +18,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
+import java.util.function.Supplier;
 
-@Mixin(KeyBindsScreen.class)
-public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
+@Mixin(NewKeyBindsScreen.class)
+public abstract class CCKeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
 {
-    @Shadow private KeyBindsList keyBindsList;
 
-    protected KeyBindsScreenMixin(Component component)
+    @Shadow protected abstract KeyBindsList getKeyBindsList();
+
+    protected CCKeyBindsScreenMixin(Component component)
     {
         super(component);
     }
@@ -35,15 +37,15 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
         if(minecraft == null)
             return;
         addRenderableWidget(Button.builder(Component.literal("A"), this::keybindspurger$purgeAll)
-            .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_all")))
-            .pos(0, minecraft.getWindow().getGuiScaledHeight() - 32)
-            .size(16,16)
-            .build());
+                .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_all")))
+                .pos(0, minecraft.getWindow().getGuiScaledHeight() - 32)
+                .size(16,16)
+                .build());
         addRenderableWidget(Button.builder(Component.literal("M"), this::keybindspurger$purgeAllNonVanilla)
-            .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_non_vanilla")))
-            .pos(0, minecraft.getWindow().getGuiScaledHeight() - 16)
-            .size(16,16)
-            .build());
+                .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_non_vanilla")))
+                .pos(0, minecraft.getWindow().getGuiScaledHeight() - 16)
+                .size(16,16)
+                .build());
     }
 
     @Unique
@@ -55,7 +57,7 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
         {
             keyMapping.setKey(InputConstants.UNKNOWN);
         }
-        keyBindsList.refreshEntries();
+        this.getKeyBindsList().refreshEntries();
     }
     @Unique
     public void keybindspurger$purgeAllNonVanilla(Button button)
@@ -67,7 +69,7 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
             if(!Keybindspurger.VANILLA_KEYBINDS.contains(keyMapping.getName()))
                 keyMapping.setKey(InputConstants.UNKNOWN);
         }
-        keyBindsList.refreshEntries();
+        this.getKeyBindsList().refreshEntries();
     }
 
     @Override
