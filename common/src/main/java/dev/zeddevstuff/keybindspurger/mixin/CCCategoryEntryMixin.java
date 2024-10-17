@@ -58,7 +58,7 @@ public class CCCategoryEntryMixin
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(InputConstants.UNKNOWN);
             });
-            this.this$0.refreshEntries();
+            ((KeyBindsList)this.this$0).refreshEntries();
         }
         else if(button == keybindspurger$resetButton)
         {
@@ -66,7 +66,7 @@ public class CCCategoryEntryMixin
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(km.getDefaultKey());
             });
-            this$0.refreshEntries();
+            ((KeyBindsList)this.this$0).refreshEntries();
         }
     }
 
