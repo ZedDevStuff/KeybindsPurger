@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import org.spongepowered.asm.mixin.Final;
@@ -55,7 +56,7 @@ public class CCCategoryEntryMixin
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(InputConstants.UNKNOWN);
             });
-            this.this$0.refreshEntries();
+            ((KeyBindsList)this$0).refreshEntries();
         }
         else if(button == keybindspurger$resetButton)
         {
@@ -63,7 +64,7 @@ public class CCCategoryEntryMixin
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(km.getDefaultKey());
             });
-            this$0.refreshEntries();
+            ((KeyBindsList)this$0).refreshEntries();
         }
     }
 
