@@ -19,7 +19,7 @@ public class KeyBindsListMixin implements IKeyBindsListMixin
     @Shadow @Final private KeyBindsScreen keyBindsScreen;
 
     @Override
-    public KeyBindsScreen parent()
+    public KeyBindsScreen keybindspurger$parent()
     {
         return keyBindsScreen;
     }

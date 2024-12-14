@@ -1,5 +1,6 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
+import com.blamejared.controlling.client.NewKeyBindsScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.zeddevstuff.keybindspurger.Keybindspurger;
@@ -7,22 +8,18 @@ import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.controls.KeyBindsList;
-import net.minecraft.client.gui.screens.controls.KeyBindsScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(KeyBindsScreen.class)
-public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
-{
-    @Shadow private KeyBindsList keyBindsList;
 
-    protected KeyBindsScreenMixin(Component component)
+@Mixin(NewKeyBindsScreen.class)
+public abstract class CCKeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
+{
+    protected CCKeyBindsScreenMixin(Component component)
     {
         super(component);
     }
@@ -76,6 +73,7 @@ public class KeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
         }
     }
 
+    @Unique
     @Override
     public Button keybindspurger$addButton(Button button)
     {

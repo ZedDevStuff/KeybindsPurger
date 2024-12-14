@@ -4,5 +4,5 @@ import net.minecraft.client.gui.components.Button;
 
 public interface IKeyBindsScreenMixin
 {
-    public void addButton(Button button);
+    public Button keybindspurger$addButton(Button button);
 }

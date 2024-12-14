@@ -5,11 +5,15 @@
   "minVersion": "0.8",
   "client": [
     "CategoryEntryMixin",
+    "CCCategoryEntryMixin",
+    "CCKeyBindsListMixin",
+    "CCKeyBindsScreenMixin",
     "KeyBindsListMixin",
     "KeyBindsScreenMixin"
   ],
   "mixins": [
   ],
+  "plugin": "dev.zeddevstuff.keybindspurger.mixin.MixinManager",
   "injectors": {
     "defaultRequire": 1
   }

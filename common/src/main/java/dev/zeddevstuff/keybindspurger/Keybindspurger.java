@@ -50,64 +50,6 @@ public final class Keybindspurger
         "key.modmenu.open_menu"
     );
 
-    private static Component PURGE = null;
-    public static Component getPURGE()
-    {
-        if(PURGE == null)
-        {
-            if(Component.translatable("button.keybindspurger.purge").getString().equals("button.keybindspurger.purge"))
-            {
-                PURGE = Component.literal("Purge all keybinds in this category");
-            }
-            else PURGE = Component.translatable("button.keybindspurger.purge");
-        }
-        return PURGE;
-    }
-    private static Component ALL = null;
-
-    public static Component getALL()
-    {
-        if(ALL == null)
-        {
-            if(Component.translatable("button.keybindspurger.purge_all").getString().equals("button.keybindspurger.purge_all"))
-            {
-                ALL = Component.literal("Purge all keybinds");
-            }
-            else ALL = Component.translatable("button.keybindspurger.purge_all");
-        }
-        return ALL;
-    }
-
-    private static Component NON_VANILLA = null;
-
-    public static Component getNON_VANILLA()
-    {
-        if(NON_VANILLA == null)
-        {
-            if(Component.translatable("button.keybindspurger.purge_non_vanilla").getString().equals("button.keybindspurger.purge_non_vanilla"))
-            {
-                NON_VANILLA = Component.literal("Purge all non-vanilla keybinds");
-            }
-            else NON_VANILLA = Component.translatable("button.keybindspurger.purge_non_vanilla");
-        }
-        return NON_VANILLA;
-    }
-
-    private static Component RESET = null;
-
-    public static Component getRESET()
-    {
-        if(RESET == null)
-        {
-            if(Component.translatable("button.keybindspurger.reset").getString().equals("button.keybindspurger.reset"))
-            {
-                RESET = Component.literal("Reset all keybinds in this category");
-            }
-            else RESET = Component.translatable("button.keybindspurger.reset");
-        }
-        return RESET;
-    }
-
     public static void init()
     {
         // Write common init code here.
