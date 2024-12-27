@@ -34,10 +34,12 @@ public class MixinManager implements IMixinConfigPlugin
     {
         boolean apply;
         if(controllingDetected) {
-            apply = mixinClassName.startsWith("dev.zeddevstuff.keybindspurger.mixin.CC");
+            apply = mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || mixinClassName.startsWith("dev.zeddevstuff.keybindspurger.mixin.ICC");
         } else {
-            apply = !mixinClassName.startsWith("dev.zeddevstuff.keybindspurger.mixin.CC");
+            apply = !mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || mixinClassName.startsWith("dev.zeddevstuff.keybindspurger.mixin.ICC");
         }
+        if(mixinClassName.toLowerCase().endsWith("global"))
+            apply = true;
         if(apply) Keybindspurger.LOGGER.info("Applying mixin: " + mixinClassName);
         return apply;
     }

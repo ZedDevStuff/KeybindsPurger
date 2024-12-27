@@ -7,9 +7,11 @@
   "client": [
     "CategoryEntryMixin",
     "CCCategoryEntryMixin",
-    "CCKeyBindsListMixin",
     "CCKeyBindsScreenMixin",
-    "KeyBindsListMixin",
+    "ICCKeyBindsListAccessor",
+    "IKeyBindsListAccessor",
+    "IOptionsSubScreenAccessorGlobal",
+    "IScreenAccessorGlobal",
     "KeyBindsScreenMixin"
   ],
   "mixins": [

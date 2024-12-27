@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(OptionsSubScreen.class)
-public interface IOptionsSubScreenAccessor
+public interface IOptionsSubScreenAccessorGlobal
 {
     @Accessor("options")
     Options pOptions();

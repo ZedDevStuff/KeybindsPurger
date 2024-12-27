@@ -1,11 +1,6 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
-import com.blamejared.controlling.client.NewKeyBindsList;
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.zeddevstuff.keybindspurger.Keybindspurger;
-import dev.zeddevstuff.keybindspurger.access.IKeyBindsListMixin;
-import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -44,8 +39,8 @@ public class CategoryEntryMixin
             .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.reset")))
             .size(12,12)
             .build();
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$purgeButton);
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$resetButton);
+        ((IScreenAccessorGlobal)((IKeyBindsListAccessor)keyBindsList).pKeyBindsScreen()).pAddWidget(keybindspurger$purgeButton);
+        ((IScreenAccessorGlobal)((IKeyBindsListAccessor)keyBindsList).pKeyBindsScreen()).pAddWidget(keybindspurger$resetButton);
     }
 
     @Unique
@@ -54,7 +49,7 @@ public class CategoryEntryMixin
         if(button == keybindspurger$purgeButton)
         {
             var key = keybindspurger$getTranslationKey();
-            Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
+            Arrays.stream(((IOptionsSubScreenAccessorGlobal) ((IKeyBindsListAccessor) field_2738).pKeyBindsScreen()).pOptions().keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(InputConstants.UNKNOWN);
             });
             field_2738.refreshEntries();
@@ -62,7 +57,7 @@ public class CategoryEntryMixin
         else if(button == keybindspurger$resetButton)
         {
             var key = keybindspurger$getTranslationKey();
-            Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
+            Arrays.stream(((IOptionsSubScreenAccessorGlobal) ((IKeyBindsListAccessor) field_2738).pKeyBindsScreen()).pOptions().keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
                 km.setKey(km.getDefaultKey());
             });
             field_2738.refreshEntries();
