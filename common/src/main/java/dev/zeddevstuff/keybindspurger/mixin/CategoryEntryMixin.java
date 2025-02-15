@@ -1,6 +1,7 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import dev.zeddevstuff.keybindspurger.LoaderSpecificUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -39,8 +40,8 @@ public class CategoryEntryMixin
             .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.reset")))
             .size(12,12)
             .build();
-        ((IScreenAccessorGlobal)((IKeyBindsListAccessor)keyBindsList).pKeyBindsScreen()).pAddWidget(keybindspurger$purgeButton);
-        ((IScreenAccessorGlobal)((IKeyBindsListAccessor)keyBindsList).pKeyBindsScreen()).pAddWidget(keybindspurger$resetButton);
+        ((IScreenAccessor)((IKeyBindsListAccessor)keyBindsList).pKeyBindsScreen()).pAddWidget(keybindspurger$purgeButton);
+        ((IScreenAccessor)((IKeyBindsListAccessor)keyBindsList).pKeyBindsScreen()).pAddWidget(keybindspurger$resetButton);
     }
 
     @Unique
@@ -49,17 +50,13 @@ public class CategoryEntryMixin
         if(button == keybindspurger$purgeButton)
         {
             var key = keybindspurger$getTranslationKey();
-            Arrays.stream(((IOptionsSubScreenAccessorGlobal) ((IKeyBindsListAccessor) field_2738).pKeyBindsScreen()).pOptions().keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
-                km.setKey(InputConstants.UNKNOWN);
-            });
+            Arrays.stream(((IOptionsSubScreenAccessor) ((IKeyBindsListAccessor) field_2738).pKeyBindsScreen()).pOptions().keyMappings).filter(km -> km.getCategory().equals(key)).forEach(LoaderSpecificUtils::clear);
             field_2738.refreshEntries();
         }
         else if(button == keybindspurger$resetButton)
         {
             var key = keybindspurger$getTranslationKey();
-            Arrays.stream(((IOptionsSubScreenAccessorGlobal) ((IKeyBindsListAccessor) field_2738).pKeyBindsScreen()).pOptions().keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
-                km.setKey(km.getDefaultKey());
-            });
+            Arrays.stream(((IOptionsSubScreenAccessor) ((IKeyBindsListAccessor) field_2738).pKeyBindsScreen()).pOptions().keyMappings).filter(km -> km.getCategory().equals(key)).forEach(LoaderSpecificUtils::reset);
             field_2738.refreshEntries();
         }
     }

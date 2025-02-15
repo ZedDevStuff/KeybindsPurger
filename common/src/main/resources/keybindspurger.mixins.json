@@ -10,8 +10,8 @@
     "CCKeyBindsScreenMixin",
     "ICCKeyBindsListAccessor",
     "IKeyBindsListAccessor",
-    "IOptionsSubScreenAccessorGlobal",
-    "IScreenAccessorGlobal",
+    "IOptionsSubScreenAccessor",
+    "IScreenAccessor",
     "KeyBindsScreenMixin"
   ],
   "mixins": [

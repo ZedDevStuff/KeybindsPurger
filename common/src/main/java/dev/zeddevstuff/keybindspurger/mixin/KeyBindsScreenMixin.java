@@ -2,6 +2,7 @@ package dev.zeddevstuff.keybindspurger.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.zeddevstuff.keybindspurger.Keybindspurger;
+import dev.zeddevstuff.keybindspurger.LoaderSpecificUtils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -50,7 +51,7 @@ public class KeyBindsScreenMixin extends Screen
             return;
         for (KeyMapping keyMapping : this.minecraft.options.keyMappings)
         {
-            keyMapping.setKey(InputConstants.UNKNOWN);
+            LoaderSpecificUtils.clear(keyMapping);
         }
         keyBindsList.refreshEntries();
     }
@@ -62,7 +63,7 @@ public class KeyBindsScreenMixin extends Screen
         for (KeyMapping keyMapping : this.minecraft.options.keyMappings)
         {
             if(!Keybindspurger.VANILLA_KEYBINDS.contains(keyMapping.getName()))
-                keyMapping.setKey(InputConstants.UNKNOWN);
+                LoaderSpecificUtils.clear(keyMapping);
         }
         keyBindsList.refreshEntries();
     }

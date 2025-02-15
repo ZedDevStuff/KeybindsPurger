@@ -1,6 +1,7 @@
 package dev.zeddevstuff.keybindspurger.neoforge;
 
 import dev.zeddevstuff.keybindspurger.Keybindspurger;
+import net.minecraft.client.KeyMapping;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.moddiscovery.ModInfo;
 
