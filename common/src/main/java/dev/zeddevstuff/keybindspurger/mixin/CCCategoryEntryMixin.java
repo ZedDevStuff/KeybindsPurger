@@ -2,8 +2,9 @@ package dev.zeddevstuff.keybindspurger.mixin;
 
 import com.blamejared.controlling.client.NewKeyBindsList;
 import com.mojang.blaze3d.platform.InputConstants;
+import dev.zeddevstuff.keybindspurger.LoaderSpecificUtils;
 import dev.zeddevstuff.keybindspurger.access.IKeyBindsListMixin;
-import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
+import dev.zeddevstuff.keybindspurger.access.IScreenAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -43,8 +44,8 @@ public class CCCategoryEntryMixin
                 .tooltip(Tooltip.create(Component.translatable("button.keybindspurger.reset")))
                 .size(12,12)
                 .build();
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)this$0).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$purgeButton);
-        ((IKeyBindsScreenMixin)((IKeyBindsListMixin)this$0).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$resetButton);
+        ((IScreenAccessor)((IKeyBindsListMixin)this$0).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$purgeButton);
+        ((IScreenAccessor)((IKeyBindsListMixin)this$0).keybindspurger$parent()).keybindspurger$addButton(keybindspurger$resetButton);
     }
 
     @Unique
@@ -54,7 +55,7 @@ public class CCCategoryEntryMixin
         {
             var key = keybindspurger$getTranslationKey();
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
-                km.setKey(InputConstants.UNKNOWN);
+                LoaderSpecificUtils.clear(km);
             });
             ((KeyBindsList)this$0).refreshEntries();
         }
@@ -62,7 +63,7 @@ public class CCCategoryEntryMixin
         {
             var key = keybindspurger$getTranslationKey();
             Arrays.stream(Minecraft.getInstance().options.keyMappings).filter(km -> km.getCategory().equals(key)).forEach(km -> {
-                km.setKey(km.getDefaultKey());
+                LoaderSpecificUtils.reset(km);
             });
             ((KeyBindsList)this$0).refreshEntries();
         }

@@ -4,7 +4,8 @@ import com.blamejared.controlling.client.NewKeyBindsList;
 import com.blamejared.controlling.client.NewKeyBindsScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.zeddevstuff.keybindspurger.Keybindspurger;
-import dev.zeddevstuff.keybindspurger.access.IKeyBindsScreenMixin;
+import dev.zeddevstuff.keybindspurger.LoaderSpecificUtils;
+import dev.zeddevstuff.keybindspurger.access.IScreenAccessor;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -18,10 +19,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.function.Supplier;
-
 @Mixin(NewKeyBindsScreen.class)
-public abstract class CCKeyBindsScreenMixin extends Screen implements IKeyBindsScreenMixin
+public abstract class CCKeyBindsScreenMixin extends Screen implements IScreenAccessor
 {
 
     @Shadow protected abstract KeyBindsList getKeyBindsList();
@@ -55,7 +54,7 @@ public abstract class CCKeyBindsScreenMixin extends Screen implements IKeyBindsS
             return;
         for (KeyMapping keyMapping : this.minecraft.options.keyMappings)
         {
-            keyMapping.setKey(InputConstants.UNKNOWN);
+            LoaderSpecificUtils.clear(keyMapping);
         }
         this.getKeyBindsList().refreshEntries();
     }
@@ -67,7 +66,7 @@ public abstract class CCKeyBindsScreenMixin extends Screen implements IKeyBindsS
         for (KeyMapping keyMapping : this.minecraft.options.keyMappings)
         {
             if(!Keybindspurger.VANILLA_KEYBINDS.contains(keyMapping.getName()))
-                keyMapping.setKey(InputConstants.UNKNOWN);
+                LoaderSpecificUtils.clear(keyMapping);
         }
         this.getKeyBindsList().refreshEntries();
     }
