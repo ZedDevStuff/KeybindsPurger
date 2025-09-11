@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class MixinManager implements IMixinConfigPlugin
@@ -42,9 +43,9 @@ public class MixinManager implements IMixinConfigPlugin
     {
         boolean apply = true;
         if(controllingDetected) {
-            apply = mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.icc");
+            apply = mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.icc");
         } else {
-            apply = !mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || !mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.icc");
+            apply = !mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || !mixinClassName.toLowerCase().startsWith("dev.zeddevstuff.keybindspurger.mixin.icc");
         }
         if(mixinClassName.equals("dev.zeddevstuff.keybindspurger.mixin.IKeyBindsListAccessor") ||
             mixinClassName.equals("dev.zeddevstuff.keybindspurger.mixin.IScreenAccessor") ||
