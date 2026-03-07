@@ -1,5 +1,6 @@
 import earth.terrarium.cloche.api.target.CommonTarget
 import earth.terrarium.cloche.api.target.FabricTarget
+import earth.terrarium.cloche.api.target.MinecraftTarget
 
 plugins {
     id("earth.terrarium.cloche") version "0.18.2"
@@ -84,15 +85,17 @@ cloche {
         it.minecraftVersion = "1.20.1"
     }
 
-    targets.forEach {
-        it.dependencies {
+    targets.configureEach {
+        dependencies {
             compileOnly("org.jetbrains:annotations:24.0.1")
         }
 
-        if (it !is CommonTarget) {
-            it.mixins.from("src/" + it.target.name.replace(":", "/") + "/main/" + metadata.modId.get() + ".mixins.json")
-        }
-        it.runs {
+        //mixins.from("src/" + target.name.replace(":", "/") + "/main/" + cloche.metadata.modId.get() + ".mixins.json")
+        mixins.from(cloche.metadata.modId.map {
+            modid -> "src/${target.name.replace(":", "/")}/main/${modid}.mixins.json"
+        })
+
+        runs {
             client()
             server()
         }
