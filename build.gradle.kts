@@ -1,6 +1,4 @@
-import earth.terrarium.cloche.api.target.CommonTarget
-import earth.terrarium.cloche.api.target.FabricTarget
-import earth.terrarium.cloche.api.target.MinecraftTarget
+import earth.terrarium.cloche.api.target.targetName
 
 plugins {
     id("earth.terrarium.cloche") version "0.18.2"
@@ -8,7 +6,7 @@ plugins {
 }
 
 group = "dev.zeddevstuff"
-version = "1.5.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
@@ -19,6 +17,9 @@ repositories {
         mavenNeoforged()
         mavenFabric()
         mavenForge()
+    }
+    maven("https://maven.blamejared.com/") {
+        name = "Controlling"
     }
 }
 
@@ -35,12 +36,14 @@ cloche {
     }
 
     common {
-        mappings {
-            official()
-        }
+
     }
 
-    val common1211 = common("common:1.21.1") {}
+    val common1211 = common("common:1.21.1") {
+        dependencies {
+            implementation("com.blamejared.controlling:Controlling-common-1.21:18.0.4")
+        }
+    }
     val neoforge1211 = neoforge("neoforge:1.21.1") {
         loaderVersion = "21.1.219"
 
@@ -55,7 +58,7 @@ cloche {
         dependsOn(common1211)
     }
 
-    val common1201 = common("common:1.20.1") {}
+    val common1201 = common("common:1.20.1")
     val forge1201 = forge("forge:1.20.1") {
         loaderVersion = "47.4.10"
 
@@ -70,12 +73,24 @@ cloche {
         dependsOn(common1201)
     }
 
+    commonTargets.configureEach {
+        mappings {
+            official()
+        }
+        if(targetName != "common")
+            accessWideners.from("src/${targetName?.replace(":", "/")}/main/resources/${cloche.metadata.modId.get()}.accesswidener")
+        //accessWideners.from("src/common/${minecraftVersion.get()}/main/resources/${cloche.metadata.modId.get()}.accesswidener")
+
+        dependencies {
+            compileOnly("org.spongepowered:mixin:0.8.5")
+        }
+    }
 
     listOf(fabric1201, fabric1211).forEach {
         it.loaderVersion = "0.18.4"
 
         it.metadata {
-            entrypoint("main", "dev.zeddevstuff.keybindspurger.fabric.KeybindsPurgerFabric")
+            entrypoint("client", "dev.zeddevstuff.keybindspurger.fabric.KeybindsPurgerFabric")
         }
     }
     listOf(fabric1211, neoforge1211).forEach {
@@ -91,13 +106,18 @@ cloche {
         }
 
         //mixins.from("src/" + target.name.replace(":", "/") + "/main/" + cloche.metadata.modId.get() + ".mixins.json")
-        mixins.from(cloche.metadata.modId.map {
-            modid -> "src/${target.name.replace(":", "/")}/main/${modid}.mixins.json"
-        })
+//        mixins.from(cloche.metadata.modId.map {
+//            modid -> "src/${target.name.replace(":", "/")}/main/resources/${modid}.mixins.json"
+//        })
+
+        metadata {
+            mixins.from("keybindspurger.mixins.json")
+        }
+
+        accessWideners.from("src/common/${minecraftVersion.get()}/main/resources/${cloche.metadata.modId.get()}.accesswidener")
 
         runs {
             client()
-            server()
         }
     }
 }

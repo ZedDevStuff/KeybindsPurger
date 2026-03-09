@@ -1,6 +1,5 @@
-package dev.zeddevstuff.keybindspurger.neoforge.mixin;
+package dev.zeddevstuff.keybindspurger.common;
 
-import dev.zeddevstuff.keybindspurger.common.Utils;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
