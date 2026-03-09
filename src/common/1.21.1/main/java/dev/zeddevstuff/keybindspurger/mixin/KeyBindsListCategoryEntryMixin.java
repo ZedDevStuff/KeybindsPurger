@@ -24,7 +24,7 @@ public abstract class KeyBindsListCategoryEntryMixin
 	private Button purgeButton;
 	private Button resetButton;
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void init(KeyBindsList keybindsList, Component name, CallbackInfo ci)
+	private void keybindspurger$init(KeyBindsList keybindsList, Component name, CallbackInfo ci)
 	{
 		this.keyBindsList = keybindsList;
 		purgeButton = Button.builder(Component.literal("x"), this::keybindspurger$purgeButtonClicked)
@@ -37,13 +37,11 @@ public abstract class KeyBindsListCategoryEntryMixin
 			.pos(0, 0)
 			.size(12, 12)
 			.build();
-//		((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(purgeButton);
-//		((IKeyBindsScreenMixin)((IKeyBindsListMixin)keyBindsList).keybindspurger$parent()).keybindspurger$addButton(resetButton);
 		keybindsList.keyBindsScreen.addWidget(purgeButton);
 		keybindsList.keyBindsScreen.addWidget(resetButton);
 	}
 	@Inject(method = "render", at = @At("TAIL"))
-	private void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick, CallbackInfo ci)
+	private void keybindspurger$render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick, CallbackInfo ci)
 	{
 		if(!purgeButton.isHovered())
 			purgeButton.setFocused(false);

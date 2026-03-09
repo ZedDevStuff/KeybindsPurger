@@ -6,8 +6,8 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
-import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
+import net.minecraft.client.gui.screens.controls.KeyBindsList;
+import net.minecraft.client.gui.screens.controls.KeyBindsScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,7 +31,7 @@ public class KeyBindsScreenMixin extends Screen
 		super(component);
 	}
 
-	@Inject(method = "addContents", at = @At("TAIL"))
+	@Inject(method = "init", at = @At("TAIL"))
 	private void keybindspurger$init(CallbackInfo ci)
 	{
 		if(minecraft == null)
@@ -47,20 +47,20 @@ public class KeyBindsScreenMixin extends Screen
 			.size(16,16)
 			.build());
 	}
-	@Inject(method = "repositionElements", at = @At("TAIL"))
-	private void keybindspurger$repositionElements(CallbackInfo ci)
-	{
-		if(purgeAllButton == null || purgeNonVanillaButton == null || minecraft == null)
-			return;
-		purgeAllButton.setPosition(
-			0,
-			minecraft.getWindow().getGuiScaledHeight() - 32
-		);
-		purgeNonVanillaButton.setPosition(
-			0,
-			minecraft.getWindow().getGuiScaledHeight() - 16
-		);
-	}
+//	@Inject(method = "repositionElements", at = @At("TAIL"))
+//	private void keybindspurger$repositionElements(CallbackInfo ci)
+//	{
+//		if(purgeAllButton == null || purgeNonVanillaButton == null || minecraft == null)
+//			return;
+//		purgeAllButton.setPosition(
+//			0,
+//			minecraft.getWindow().getGuiScaledHeight() - 32
+//		);
+//		purgeNonVanillaButton.setPosition(
+//			0,
+//			minecraft.getWindow().getGuiScaledHeight() - 16
+//		);
+//	}
 
 	@Unique
 	private void keybindspurger$purgeAll(Button button)

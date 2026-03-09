@@ -29,7 +29,7 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 	public CCKeyBindsScreenMixin(Screen screen, Options options) { super(screen, options); }
 
 	@Inject(method = "addContents", at = @At("TAIL"))
-	private void init(CallbackInfo ci)
+	private void keybindspurger$init(CallbackInfo ci)
 	{
 		if(minecraft == null)
 			return;
@@ -45,7 +45,7 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 			.build());
 	}
 	@Inject(method = "repositionElements", at = @At("TAIL"))
-	private void reposition(CallbackInfo ci)
+	private void keybindspurger$repositionElements(CallbackInfo ci)
 	{
 		if(purgeAllButton == null || purgeNonVanillaButton == null || minecraft == null)
 			return;

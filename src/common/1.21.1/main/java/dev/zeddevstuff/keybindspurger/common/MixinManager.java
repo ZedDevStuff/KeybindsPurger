@@ -11,18 +11,11 @@ import java.util.Set;
 
 public class MixinManager implements IMixinConfigPlugin
 {
-	private List<String> mixins = new ArrayList<>();
 	private boolean controllingDetected = false;
-	private static boolean neoForgeDetected = false;
-	public static boolean isNeoForge()
-	{
-		return neoForgeDetected;
-	}
 	@Override
 	public void onLoad(String s)
 	{
 		List<String> mods = Utils.getMods();
-		neoForgeDetected = mods.contains("neoforge");
 		controllingDetected = mods.contains("controlling");
 	}
 
@@ -35,12 +28,11 @@ public class MixinManager implements IMixinConfigPlugin
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
 	{
-		//com.blamejared.controlling.client.NewKeyBindsScreen
 		boolean apply = true;
 		if(controllingDetected) {
 			apply = mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.icc");
 		} else {
-			apply = !mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") || !mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.icc");
+			apply = !mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.cc") && !mixinClassName.toLowerCase(Locale.ROOT).startsWith("dev.zeddevstuff.keybindspurger.mixin.icc");
 		}
 		return apply;
 	}

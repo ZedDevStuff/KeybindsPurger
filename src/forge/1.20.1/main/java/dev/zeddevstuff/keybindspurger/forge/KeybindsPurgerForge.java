@@ -1,13 +1,13 @@
-package dev.zeddevstuff.keybindspurger.neoforge;
+package dev.zeddevstuff.keybindspurger.forge;
 
 import com.mojang.logging.LogUtils;
 import dev.zeddevstuff.keybindspurger.common.Constants;
-import net.neoforged.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 
 @Mod(Constants.MOD_ID)
-public class KeybindsPurgerNeoforge
+public class KeybindsPurgerForge
 {
 	private final Logger LOGGER = LogUtils.getLogger();
-	public KeybindsPurgerNeoforge() {}
+	public KeybindsPurgerForge() {}
 }

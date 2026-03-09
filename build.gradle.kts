@@ -58,7 +58,11 @@ cloche {
         dependsOn(common1211)
     }
 
-    val common1201 = common("common:1.20.1")
+    val common1201 = common("common:1.20.1") {
+        dependencies {
+            implementation("com.blamejared.controlling:Controlling-common-1.20.1:12.0.2")
+        }
+    }
     val forge1201 = forge("forge:1.20.1") {
         loaderVersion = "47.4.10"
 

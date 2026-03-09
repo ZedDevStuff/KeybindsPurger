@@ -1,16 +1,13 @@
 package dev.zeddevstuff.keybindspurger.mixin;
 
-import com.blamejared.controlling.client.NewKeyBindsList;
 import dev.zeddevstuff.keybindspurger.common.Utils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
+import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,14 +15,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(NewKeyBindsList.CategoryEntry.class)
-public class CCKeyBindsListCategoryEntryMixin
+@Mixin(KeyBindsList.CategoryEntry.class)
+public abstract class KeyBindsListCategoryEntryMixin
 {
-	private NewKeyBindsList keyBindsList;
+	private KeyBindsList keyBindsList;
 	private Button purgeButton;
 	private Button resetButton;
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void keybindspurger$init(NewKeyBindsList keybindsList, Component par2, CallbackInfo ci)
+	private void keybindspurger$init(KeyBindsList keybindsList, Component name, CallbackInfo ci)
 	{
 		this.keyBindsList = keybindsList;
 		purgeButton = Button.builder(Component.literal("x"), this::keybindspurger$purgeButtonClicked)
@@ -58,31 +55,31 @@ public class CCKeyBindsListCategoryEntryMixin
 
 	private void keybindspurger$purgeButtonClicked(Button button)
 	{
-		for(var keyMapping : getKeyMappingsForCategory((NewKeyBindsList.CategoryEntry) (Object) this))
+		for(var keyMapping : getKeyMappingsForCategory((KeyBindsList.CategoryEntry) (Object) this))
 			Utils.clearKeyMapping(keyMapping);
 		keyBindsList.refreshEntries();
 	}
 	private void keybindspurger$resetButtonClicked(Button button)
 	{
-		for(var keyMapping : getKeyMappingsForCategory((NewKeyBindsList.CategoryEntry) (Object) this))
+		for(var keyMapping : getKeyMappingsForCategory((KeyBindsList.CategoryEntry) (Object) this))
 			Utils.resetKeyMapping(keyMapping);
 		keyBindsList.refreshEntries();
 	}
 
-	private List<KeyMapping> getKeyMappingsForCategory(NewKeyBindsList.CategoryEntry category)
+	private List<KeyMapping> getKeyMappingsForCategory(KeyBindsList.CategoryEntry category)
 	{
 		int items = keyBindsList.getItemCount();
 		List<KeyMapping> keyMappings = null;
 		for(int i = 0; i < items; i++)
 		{
-			NewKeyBindsList.Entry entry = keyBindsList.getEntry(i);
+			KeyBindsList.Entry entry = keyBindsList.getEntry(i);
 			if(entry == category)
 				keyMappings = new ArrayList<>();
-			else if(entry instanceof NewKeyBindsList.KeyEntry keyEntry && keyMappings != null)
+			else if(entry instanceof KeyBindsList.KeyEntry keyEntry && keyMappings != null)
 			{
-				keyMappings.add(keyEntry.getKey());
+				keyMappings.add(keyEntry.key);
 			}
-			else if (entry instanceof NewKeyBindsList.CategoryEntry && keyMappings != null)
+			else if (entry instanceof KeyBindsList.CategoryEntry && keyMappings != null)
 				break;
 		}
 		if(keyMappings == null)

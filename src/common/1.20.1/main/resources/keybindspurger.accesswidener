@@ -1,0 +1,9 @@
+accessWidener v2 named
+accessible field net/minecraft/client/gui/screens/controls/KeyBindsScreen keyBindsList Lnet/minecraft/client/gui/screens/controls/KeyBindsList;
+accessible field net/minecraft/client/gui/screens/controls/KeyBindsList keyBindsScreen Lnet/minecraft/client/gui/screens/controls/KeyBindsScreen;
+accessible field net/minecraft/client/gui/screens/controls/KeyBindsList$KeyEntry key Lnet/minecraft/client/KeyMapping;
+accessible method net/minecraft/client/gui/components/AbstractSelectionList getEntry (I)Lnet/minecraft/client/gui/components/AbstractSelectionList$Entry;
+accessible method net/minecraft/client/gui/components/AbstractSelectionList getItemCount ()I
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableOnly (Lnet/minecraft/client/gui/components/Renderable;)Lnet/minecraft/client/gui/components/Renderable;
+accessible method net/minecraft/client/gui/screens/Screen addWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
