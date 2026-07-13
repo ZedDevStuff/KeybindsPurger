@@ -1,7 +1,7 @@
-import earth.terrarium.cloche.api.target.targetName
+import earth.terrarium.cloche.api.target.FabricTarget
 
 plugins {
-    id("earth.terrarium.cloche") version "0.18.2"
+    id("earth.terrarium.cloche") version "0.18.11-dust.20"
     id("com.gradleup.shadow") version "9.3.0"
 }
 
@@ -36,7 +36,6 @@ cloche {
     }
 
     common {
-
     }
 
     val common1211 = common("common:1.21.1") {
@@ -81,8 +80,8 @@ cloche {
         mappings {
             official()
         }
-        if(targetName != "common")
-            accessWideners.from("src/${targetName?.replace(":", "/")}/main/resources/${cloche.metadata.modId.get()}.accesswidener")
+        if(name != "common")
+            accessWideners.from("src/${name.replace(":", "/")}/main/resources/${cloche.metadata.modId.get()}.accesswidener")
         //accessWideners.from("src/common/${minecraftVersion.get()}/main/resources/${cloche.metadata.modId.get()}.accesswidener")
 
         dependencies {
@@ -90,21 +89,22 @@ cloche {
         }
     }
 
-    listOf(fabric1201, fabric1211).forEach {
-        it.loaderVersion = "0.18.4"
+    targets.withType<FabricTarget>().configureEach {
+        loaderVersion = "0.18.4"
 
-        it.metadata {
+        metadata {
             entrypoint("client", "dev.zeddevstuff.keybindspurger.fabric.KeybindsPurgerFabric")
         }
     }
-    listOf(fabric1211, neoforge1211).forEach {
-        it.minecraftVersion = "1.21.1"
-    }
-    listOf(fabric1201, forge1201).forEach {
-        it.minecraftVersion = "1.20.1"
-    }
+//    listOf(fabric1211, neoforge1211).forEach {
+//        it.minecraftVersion = "1.21.1"
+//    }
+//    listOf(fabric1201, forge1201).forEach {
+//        it.minecraftVersion = "1.20.1"
+//    }
 
     targets.configureEach {
+        minecraftVersion = name.substringAfter(":")
         dependencies {
             compileOnly("org.jetbrains:annotations:24.0.1")
         }

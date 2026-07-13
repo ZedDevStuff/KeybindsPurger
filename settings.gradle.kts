@@ -5,6 +5,7 @@ pluginManagement {
         mavenLocal()
         gradlePluginPortal()
         maven(url = "https://maven.msrandom.net/repository/cloche/")
+        maven("https://raw.githubusercontent.com/settingdust/maven/main/repository/")
     }
 }
 
