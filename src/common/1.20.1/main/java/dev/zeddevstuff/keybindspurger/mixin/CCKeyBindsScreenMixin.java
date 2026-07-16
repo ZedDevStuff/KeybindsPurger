@@ -30,23 +30,23 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 
 
 	@Inject(method = "init", at = @At("TAIL"))
-	private void keybindspurger$init(CallbackInfo ci)
+	private void keybindsPurger$init(CallbackInfo ci)
 	{
 		if(minecraft == null)
 			return;
-		purgeAllButton = addRenderableWidget(Button.builder(Component.literal("A"), this::keybindspurger$purgeAll)
+		purgeAllButton = addRenderableWidget(Button.builder(Component.literal("A"), this::keybindsPurger$purgeAll)
 			.tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_all")))
 			.pos(0, minecraft.getWindow().getGuiScaledHeight() - 32)
 			.size(16,16)
 			.build());
-		purgeNonVanillaButton = addRenderableWidget(Button.builder(Component.literal("M"), this::keybindspurger$purgeAllNonVanilla)
+		purgeNonVanillaButton = addRenderableWidget(Button.builder(Component.literal("M"), this::keybindsPurger$purgeAllNonVanilla)
 			.tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_non_vanilla")))
 			.pos(0, minecraft.getWindow().getGuiScaledHeight() - 16)
 			.size(16,16)
 			.build());
 	}
 //	@Inject(method = "repositionElements", at = @At("TAIL"))
-//	private void keybindspurger$repositionElements(CallbackInfo ci)
+//	private void keybindsPurger$repositionElements(CallbackInfo ci)
 //	{
 //		if(purgeAllButton == null || purgeNonVanillaButton == null || minecraft == null)
 //			return;
@@ -61,7 +61,7 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 //	}
 
 	@Unique
-	private void keybindspurger$purgeAll(Button button)
+	private void keybindsPurger$purgeAll(Button button)
 	{
 		assert this.minecraft != null;
 		for (KeyMapping keyMapping : this.minecraft.options.keyMappings)
@@ -71,7 +71,7 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 		keyBindsList.refreshEntries();
 	}
 	@Unique
-	private void keybindspurger$purgeAllNonVanilla(Button button)
+	private void keybindsPurger$purgeAllNonVanilla(Button button)
 	{
 		assert this.minecraft != null;
 		for (KeyMapping keyMapping : this.minecraft.options.keyMappings)

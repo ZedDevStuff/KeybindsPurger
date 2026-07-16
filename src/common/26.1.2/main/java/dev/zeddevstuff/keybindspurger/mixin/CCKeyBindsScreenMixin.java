@@ -8,11 +8,10 @@ import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,9 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class CCKeyBindsScreenMixin extends KeyBindsScreen
 {
 	@Unique
-	private Button purgeAllButton;
+	private Button keybindsPurger$purgeAllButton;
 	@Unique
-	private Button purgeNonVanillaButton;
+	private Button keybindsPurger$purgeNonVanillaButton;
 
 	public CCKeyBindsScreenMixin(Screen screen, Options options) { super(screen, options); }
 
@@ -33,12 +32,12 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 	{
 		if(minecraft == null)
 			return;
-		purgeAllButton = addRenderableWidget(Button.builder(Component.literal("A"), this::keybindsPurger$purgeAll)
+		keybindsPurger$purgeAllButton = addRenderableWidget(Button.builder(Component.literal("A"), this::keybindsPurger$purgeAll)
 			.tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_all")))
 			.pos(0, minecraft.getWindow().getGuiScaledHeight() - 32)
 			.size(16,16)
 			.build());
-		purgeNonVanillaButton = addRenderableWidget(Button.builder(Component.literal("M"), this::keybindsPurger$purgeAllNonVanilla)
+		keybindsPurger$purgeNonVanillaButton = addRenderableWidget(Button.builder(Component.literal("M"), this::keybindsPurger$purgeAllNonVanilla)
 			.tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge_non_vanilla")))
 			.pos(0, minecraft.getWindow().getGuiScaledHeight() - 16)
 			.size(16,16)
@@ -47,13 +46,13 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 	@Inject(method = "repositionElements", at = @At("TAIL"))
 	private void keybindsPurger$repositionElements(CallbackInfo ci)
 	{
-		if(purgeAllButton == null || purgeNonVanillaButton == null || minecraft == null)
+		if(keybindsPurger$purgeAllButton == null || keybindsPurger$purgeNonVanillaButton == null || minecraft == null)
 			return;
-		purgeAllButton.setPosition(
+		keybindsPurger$purgeAllButton.setPosition(
 			0,
 			minecraft.getWindow().getGuiScaledHeight() - 32
 		);
-		purgeNonVanillaButton.setPosition(
+		keybindsPurger$purgeNonVanillaButton.setPosition(
 			0,
 			minecraft.getWindow().getGuiScaledHeight() - 16
 		);
@@ -78,6 +77,7 @@ public class CCKeyBindsScreenMixin extends KeyBindsScreen
 			if(!Constants.VANILLA_KEYBINDS.contains(keyMapping.getName()))
 				Utils.clearKeyMapping(keyMapping);
 		}
+
 		keyBindsList.refreshEntries();
 	}
 }

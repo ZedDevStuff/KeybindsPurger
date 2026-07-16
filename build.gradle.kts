@@ -1,7 +1,7 @@
 import earth.terrarium.cloche.api.target.FabricTarget
 
 plugins {
-    id("earth.terrarium.cloche") version "0.18.11-dust.20"
+    id("earth.terrarium.cloche") version "0.19.11"
     id("com.gradleup.shadow") version "9.3.0"
 }
 
@@ -22,7 +22,11 @@ repositories {
         name = "Controlling"
     }
 }
-
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
 cloche {
     metadata {
         modId = "keybindspurger"
@@ -38,17 +42,40 @@ cloche {
     common {
     }
 
+    val common2612 = common("common:26.1.2") {
+        dependencies {
+            //implementation("com.blamejared.controlling:Controlling-common-26.1.2:26.1.2.4")
+        }
+    }
+    neoforge("neoforge:26.1.2") {
+        loaderVersion = "26.1.2.78"
+        dependencies {
+            implementation("com.blamejared.controlling:Controlling-neoforge-26.1.2:26.1.2.4")
+        }
+
+        dependsOn(common2612)
+    }
+    fabric("fabric:26.1.2") {
+        includedClient()
+        dependencies {
+            fabricApi("0.154.2")
+            implementation("com.blamejared.controlling:Controlling-fabric-26.1.2:26.1.2.4")
+        }
+
+        dependsOn(common2612)
+    }
+
     val common1211 = common("common:1.21.1") {
         dependencies {
             implementation("com.blamejared.controlling:Controlling-common-1.21:18.0.4")
         }
     }
-    val neoforge1211 = neoforge("neoforge:1.21.1") {
+    neoforge("neoforge:1.21.1") {
         loaderVersion = "21.1.219"
 
         dependsOn(common1211)
     }
-    val fabric1211 = fabric("fabric:1.21.1") {
+    fabric("fabric:1.21.1") {
         includedClient()
         dependencies {
             fabricApi("0.116.8")
@@ -62,12 +89,12 @@ cloche {
             implementation("com.blamejared.controlling:Controlling-common-1.20.1:12.0.2")
         }
     }
-    val forge1201 = forge("forge:1.20.1") {
+    forge("forge:1.20.1") {
         loaderVersion = "47.4.10"
 
         dependsOn(common1201)
     }
-    val fabric1201 = fabric("fabric:1.20.1") {
+    fabric("fabric:1.20.1") {
         includedClient()
         dependencies {
             fabricApi("0.92.7")
@@ -90,7 +117,7 @@ cloche {
     }
 
     targets.withType<FabricTarget>().configureEach {
-        loaderVersion = "0.18.4"
+        loaderVersion = "0.19.3"
 
         metadata {
             entrypoint("client", "dev.zeddevstuff.keybindspurger.fabric.KeybindsPurgerFabric")
@@ -108,11 +135,6 @@ cloche {
         dependencies {
             compileOnly("org.jetbrains:annotations:24.0.1")
         }
-
-        //mixins.from("src/" + target.name.replace(":", "/") + "/main/" + cloche.metadata.modId.get() + ".mixins.json")
-//        mixins.from(cloche.metadata.modId.map {
-//            modid -> "src/${target.name.replace(":", "/")}/main/resources/${modid}.mixins.json"
-//        })
 
         metadata {
             mixins.from("keybindspurger.mixins.json")

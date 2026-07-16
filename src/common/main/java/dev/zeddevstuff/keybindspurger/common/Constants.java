@@ -40,6 +40,32 @@ public class Constants
 		"key.hotbar.7",
 		"key.hotbar.8",
 		"key.hotbar.9",
-		"key.modmenu.open_menu"
+		"key.modmenu.open_menu", // I have no idea why this is here, but I'm gonna assume removing it is bad
+		"key.toggleGui",
+		"key.toggleSpectatorShaderEffects",
+		"key.spectatorHotbar",
+		"key.quickActions",
+		"key.debug.overlay",
+		"key.debug.modifier",
+		"key.debug.reloadChunk",
+		"key.debug.showHitboxes",
+		"key.debug.clearChat",
+		"key.debug.crash",
+		"key.debug.showChunkBorders",
+		"key.debug.showAdvancedTooltips",
+		"key.debug.copyRecreateCommand",
+		"key.debug.spectate",
+		"key.debug.switchGameMode",
+		"key.debug.debugOptions",
+		"key.debug.focusPause",
+		"key.debug.dumpDynamicTextures",
+		"key.debug.reloadResourcePacks",
+		"key.debug.profiling",
+		"key.debug.copyLocation",
+		"key.debug.dumpVersion",
+		"key.debug.profilingChart",
+		"key.debug.fpsCharts",
+		"key.debug.networkCharts",
+		"key.debug.lightmapTexture"
 	);
 }

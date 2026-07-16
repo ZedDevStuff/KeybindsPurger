@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "dev.zeddevstuff.keybindspurger.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "plugin": "dev.zeddevstuff.keybindspurger.common.MixinManager",
+  "client": [
+    "CCKeyBindsListCategoryEntryMixin",
+    "CCKeyBindsScreenMixin",
+    "KeyBindsListCategoryEntryMixin",
+    "KeyBindsScreenMixin"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

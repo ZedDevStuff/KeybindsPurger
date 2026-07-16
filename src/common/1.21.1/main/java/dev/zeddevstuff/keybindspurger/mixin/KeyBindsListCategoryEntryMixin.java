@@ -24,15 +24,15 @@ public abstract class KeyBindsListCategoryEntryMixin
 	private Button purgeButton;
 	private Button resetButton;
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void keybindspurger$init(KeyBindsList keybindsList, Component name, CallbackInfo ci)
+	private void keybindsPurger$init(KeyBindsList keybindsList, Component name, CallbackInfo ci)
 	{
 		this.keyBindsList = keybindsList;
-		purgeButton = Button.builder(Component.literal("x"), this::keybindspurger$purgeButtonClicked)
+		purgeButton = Button.builder(Component.literal("x"), this::keybindsPurger$purgeButtonClicked)
 			.tooltip(Tooltip.create(Component.translatable("button.keybindspurger.purge")))
 			.pos(0, 0)
 			.size(12, 12)
 			.build();
-		resetButton = Button.builder(Component.literal("r"), this::keybindspurger$resetButtonClicked)
+		resetButton = Button.builder(Component.literal("r"), this::keybindsPurger$resetButtonClicked)
 			.tooltip(Tooltip.create(Component.translatable("button.keybindspurger.reset")))
 			.pos(0, 0)
 			.size(12, 12)
@@ -41,7 +41,7 @@ public abstract class KeyBindsListCategoryEntryMixin
 		keybindsList.keyBindsScreen.addWidget(resetButton);
 	}
 	@Inject(method = "render", at = @At("TAIL"))
-	private void keybindspurger$render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick, CallbackInfo ci)
+	private void keybindsPurger$render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick, CallbackInfo ci)
 	{
 		if(!purgeButton.isHovered())
 			purgeButton.setFocused(false);
@@ -55,13 +55,13 @@ public abstract class KeyBindsListCategoryEntryMixin
 		resetButton.render(guiGraphics, mouseX, mouseY, partialTick);
 	}
 
-	private void keybindspurger$purgeButtonClicked(Button button)
+	private void keybindsPurger$purgeButtonClicked(Button button)
 	{
 		for(var keyMapping : getKeyMappingsForCategory((KeyBindsList.CategoryEntry) (Object) this))
 			Utils.clearKeyMapping(keyMapping);
 		keyBindsList.refreshEntries();
 	}
-	private void keybindspurger$resetButtonClicked(Button button)
+	private void keybindsPurger$resetButtonClicked(Button button)
 	{
 		for(var keyMapping : getKeyMappingsForCategory((KeyBindsList.CategoryEntry) (Object) this))
 			Utils.resetKeyMapping(keyMapping);
